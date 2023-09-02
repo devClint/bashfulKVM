@@ -1,28 +1,29 @@
-
 package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"os/exec"
 )
-
-func startLab(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Lab setup is in progress...")
-	fmt.Println("Debug: Start Lab button clicked.")
-	cmd := exec.Command("/bin/bash", "-c", "./setup_lab_with_debugging.sh")
-	cmd.Start()
-	fmt.Println("Debug: Bash script executed.")
-}
 
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "index.html")
 	})
-	http.HandleFunc("/start-lab", startLab)
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+
+	http.HandleFunc("/start-lab", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("Debug: Start Lab button clicked.")
+		cmd := exec.Command("./setup_lab_with_progress_and_debugging.sh")
+		err := cmd.Run()
+		if err != nil {
+			fmt.Println("Debug: Bash script failed to execute.")
+			fmt.Fprintf(w, "Lab setup failed.")
+			return
+		}
+		fmt.Println("Debug: Bash script executed.")
+		fmt.Fprintf(w, "Lab setup is in progress...")
+	})
 
 	fmt.Println("Debug: Web server started at http://localhost:4099/")
-	log.Fatal(http.ListenAndServe(":4099", nil))
+	http.ListenAndServe(":4099", nil)
 }

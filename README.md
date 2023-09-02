@@ -1,34 +1,26 @@
-
 # bashfulKVM
 
-A simple lab setup automation tool built with Go and Bash. 
+## About
+This project aims to provide a simplified GUI to set up a lab environment using KVM. 
+It's written in Go and Bash, and the GUI is basic HTML. 
+The lab uses Rocky Linux for the virtual machines.
 
 ## Features
+1. Web GUI to start the lab setup process
+2. Downloads Rocky Linux minimal ISO if not already downloaded
+3. Shows the progress of the lab setup
 
-- Web GUI for a one-click lab setup.
-- Uses KVM to create two minimal Rocky Linux VMs.
-- Shows the progress of the lab setup on the web GUI.
+## Usage
+1. Clone this repository.
+2. Make sure you have Go and KVM installed.
+3. Run `go run go_web_server_with_debugging.go`.
+4. Open your web browser and go to `http://localhost:4099`.
+5. Click the "Start Lab" button.
 
-## Requirements
+## Dependencies
+1. Go (for the web server)
+2. KVM (for the virtual machines)
+3. wget (for downloading ISO)
 
-- Fedora or any other Linux distribution with support for KVM.
-- Go programming language.
-
-## How it Works
-
-1. The Go web server serves the web GUI.
-2. On clicking the "Start Lab" button, a Bash script (`setup_lab_with_debugging.sh`) is executed.
-3. The Bash script downloads the Rocky Linux ISO if it doesn't exist, and sets up two minimal VMs.
-
-## Steps to Run
-
-1. Download and unzip the project.
-2. Navigate to the project directory in the terminal.
-3. Run the Go web server using `go run go_web_server_with_debugging.go`.
-4. Open a web browser and go to `http://localhost:4099`.
-5. Click the "Start Lab" button to begin the lab setup.
-
-## Debugging
-
-Check the terminal where the Go web server is running for debugging information.
-
+## Version
+- bashfulKVM v04

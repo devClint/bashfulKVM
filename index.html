@@ -1,21 +1,22 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Go Web Server</title>
+        <title>Lab Setup</title>
 </head>
 <body>
-    <h1>Welcome to the Go Web Server!</h1>
-    <p>This is a simple Go web server.</p>
-    <!-- Adding a Start Lab button -->
-    <button id="start-lab">Start Lab</button>
-    <script>
-        // JavaScript to handle button click
-        document.getElementById("start-lab").addEventListener("click", function() {
-            // Make a request to the Go web server to start the lab
-            fetch("/start-lab", { method: "POST" });
-        });
-    </script>
+        <h1>Welcome to the Data Center Lab</h1>
+        <button onclick="startLab()">Start Lab</button>
+
+        <div id="status">
+                <!-- Lab status will be displayed here -->
+        </div>
+
+        <script>
+                function startLab() {
+                        fetch("/start-lab").then(response => response.text()).then(data => {
+                                document.getElementById("status").innerHTML = data;
+                        });
+                }
+        </script>
 </body>
 </html>

@@ -1,0 +1,21 @@
+# Go
+/bin/
+
+# IDEs and editors
+*.swp
+*.swo
+*.idea/
+*.vscode/
+
+# Temporary and backup files
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# macOS Finder
+.DS_Store
+
+# Archive folder
+old/
+archive/
