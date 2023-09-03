@@ -1,0 +1,32 @@
+
+package main
+
+import (
+	"fmt"
+	"log"
+	"net/http"
+	"os/exec"
+)
+
+func startLab(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Debug: Start Lab button clicked.")
+	cmd := exec.Command("/bin/bash", "bash/setup_lab.sh")
+	err := cmd.Run()
+	if err != nil {
+		fmt.Println("Debug: Bash script failed to execute.")
+		w.Write([]byte("Lab setup failed."))
+		return
+	}
+	fmt.Println("Debug: Bash script executed.")
+	w.Write([]byte("Lab setup is in progress..."))
+}
+
+func main() {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "gui/index.html")
+	})
+	http.HandleFunc("/start-lab", startLab)
+
+	fmt.Println("Debug: Web server started at http://localhost:4099/")
+	log.Fatal(http.ListenAndServe(":4099", nil))
+}
